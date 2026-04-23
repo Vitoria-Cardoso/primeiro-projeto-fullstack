@@ -1,7 +1,6 @@
 export const CountryCard = ({ country }) => {
 	return (
 		<div className="country-card">
-			{/* Bandeira ocupando toda a largura */}
 			<img src={country.flag} alt={country.name} className="country-flag" />
 
 			{/* Conteúdo */}

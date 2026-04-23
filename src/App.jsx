@@ -16,10 +16,8 @@ function App() {
 
 			<Search />
 
-			{/* Mensagem de erro da API */}
 			{error && <div className="error-box">❌ {error}</div>}
 
-			{/* Mostrar loading */}
 			{loading && <Loading />}
 
 			{/* Mostrar países */}
@@ -32,7 +30,6 @@ function App() {
 				</>
 			)}
 
-			{/* Mensagem inicial */}
 			{!loading && countries.length === 0 && !error && (
 				<div className="initial-message">
 					<p>🔍 Digite o nome de um país para começar...</p>
