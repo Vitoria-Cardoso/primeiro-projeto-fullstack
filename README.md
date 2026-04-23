@@ -1,16 +1,42 @@
-# React + Vite
+# 🌍 Busca de Países
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um projeto Single Page Application (SPA) para pesquisar países. O projeto é desenvolvido usando React e utiliza diversas tecnologias modernas.
 
-Currently, two official plugins are available:
+## Membros
+- Vitoria Cardoso
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tecnologias Utilizadas
+- React Hook useReducer com Context API para gerenciamento de estado.
+- React Hook Form para validação de formulários.
+- API REST Countries v3.1 para buscar informações sobre os países.
 
-## React Compiler
+## Estrutura do Projeto
+O projeto possui a seguinte estrutura:
+```
+src/
+  ├── components/
+  └── contexts/
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Instruções de Instalação
+1. Clone este repositório.
+2. Navegue até a pasta do projeto.
+3. Execute `npm install` para instalar as dependências.
+4. Execute `npm start` para iniciar a aplicação.
 
-## Expanding the ESLint configuration
+## Como Usar
+Basta acessar a aplicação em seu navegador. Você poderá pesquisar países utilizando o campo de busca disponível na interface.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Lista de Dependências
+- React
+- React-dom
+- react-hook-form
+- axios
+
+## Critérios Atendidos
+- Busca eficiente de informações sobre os países.
+- Validação de formulários com feedback ao usuário.
+- Estrutura de projeto organizada e seguindo boas práticas de desenvolvimento.
+
+## Notas sobre Responsividade
+A aplicação foi desenvolvida com um design responsivo em mente, garantindo uma boa experiência em dispositivos móveis e telas de diferentes tamanhos.
