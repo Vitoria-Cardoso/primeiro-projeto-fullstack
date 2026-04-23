@@ -1,16 +1,34 @@
-# React + Vite
+# 🌍 Busca de Países
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web para buscar informações sobre países do mundo de forma simples e rápida.
 
-Currently, two official plugins are available:
+## 📋 Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este é um projeto desenvolvido para a disciplina de **Programação Web Fullstack**. A aplicação permite que o usuário busque por países e visualize informações como capital, população e região.
 
-## React Compiler
+É uma **Single Page Application (SPA)** construída com React, que consome dados da API REST Countries.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎯 Funcionalidades
 
-## Expanding the ESLint configuration
+- Buscar países por nome
+- Visualizar dados do país (nome, capital, população, região)
+- Ver a bandeira do país
+- Validação de formulário
+- Tratamento de erros
+- Interface responsiva para desktop e celular
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 👥 Membros do Grupo
+
+- Vitoria Cardoso
+
+## 🛠️ Tecnologias Utilizadas
+
+### React.js
+
+- **Hook implementado:** `useReducer` - Controla os estados da aplicação (carregando, sucesso, erro)
+- **Context API** - Compartilha dados globalmente entre componentes
+- **React Hook Form** - Validação do formulário de busca
+
+### API Utilizada
+
+- **REST Countries** (https://restcountries.com/v3.1) - Fornece dados sobre países
