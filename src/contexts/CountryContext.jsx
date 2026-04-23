@@ -1,0 +1,24 @@
+import { createContext, useReducer } from "react";
+import { countryReducer, ACTIONS } from "./countryReducer";
+
+// Cria o Context que será compartilhado por toda a app
+export const CountryContext = createContext();
+
+// Componente que "envolve" toda a aplicação
+export const CountryProvider = ({ children }) => {
+	// Estado inicial
+	const initialState = {
+		countries: [],
+		loading: false,
+		error: null,
+	};
+
+	// useReducer: baseado em ações, muda o estado
+	const [state, dispatch] = useReducer(countryReducer, initialState);
+
+	return (
+		<CountryContext.Provider value={{ state, dispatch }}>
+			{children}
+		</CountryContext.Provider>
+	);
+};
