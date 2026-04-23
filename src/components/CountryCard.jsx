@@ -1,29 +1,33 @@
 export const CountryCard = ({ country }) => {
 	return (
-		<div
-			style={{
-				border: "1px solid #ddd",
-				borderRadius: "8px",
-				padding: "15px",
-				textAlign: "center",
-				boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-				backgroundColor: "#fff",
-			}}>
-			{/* Bandeira */}
-			<img
-				src={country.flag}
-				alt={country.name}
-				style={{ width: "100px", height: "60px", marginBottom: "10px" }}
-			/>
+		<div className="country-card">
+			{/* Bandeira ocupando toda a largura */}
+			<img src={country.flag} alt={country.name} className="country-flag" />
 
-			{/* Informações */}
-			<h3 style={{ margin: "10px 0" }}>{country.name}</h3>
-			<p>
-				<strong>Capital:</strong> {country.capital}
-			</p>
-			<p>
-				<strong>População:</strong> {country.population}
-			</p>
+			{/* Conteúdo */}
+			<div className="card-content">
+				<h3 className="country-name">{country.name}</h3>
+
+				<div className="card-info">
+					<span className="card-info-icon">🏛️</span>
+					<strong>Capital:</strong>
+					<span>{country.capital}</span>
+				</div>
+
+				<div className="card-info">
+					<span className="card-info-icon">👥</span>
+					<strong>População:</strong>
+					<span>{country.population}</span>
+				</div>
+
+				{country.region && (
+					<div className="card-info">
+						<span className="card-info-icon">🌍</span>
+						<strong>Região:</strong>
+						<span>{country.region}</span>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };

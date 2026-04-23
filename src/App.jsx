@@ -12,28 +12,32 @@ function App() {
 	return (
 		<div className="container">
 			<h1>🌍 Busca de Países</h1>
+			<p className="subtitle">Encontre informações sobre países do mundo</p>
+
 			<Search />
 
-			{/* Mostra erro se houver */}
-			{error && (
-				<div style={{ color: "red", marginBottom: "20px", fontSize: "18px" }}>
-					❌ {error}
-				</div>
-			)}
+			{/* Mensagem de erro da API */}
+			{error && <div className="error-box">❌ {error}</div>}
 
-			{/* Mostra loading enquanto busca */}
+			{/* Mostrar loading */}
 			{loading && <Loading />}
 
-			{/* Mostra os países */}
+			{/* Mostrar países */}
 			{!loading && countries.length > 0 && (
-				<CountryList countries={countries} />
+				<>
+					<p className="success-message">
+						📍 {countries.length} país(es) encontrado(s)
+					</p>
+					<CountryList countries={countries} />
+				</>
 			)}
 
 			{/* Mensagem inicial */}
 			{!loading && countries.length === 0 && !error && (
-				<p style={{ textAlign: "center", color: "#999" }}>
-					Digite um país para começar...
-				</p>
+				<div className="initial-message">
+					<p>🔍 Digite o nome de um país para começar...</p>
+					<p className="example-text">Ex: Brasil, Itália, Japão</p>
+				</div>
 			)}
 		</div>
 	);

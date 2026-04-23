@@ -1,7 +1,8 @@
 export const Loading = () => {
 	return (
-		<div style={{ textAlign: "center", padding: "20px" }}>
-			<p>⏳ Carregando...</p>
+		<div className="loading-container">
+			<div className="spinner"></div>
+			<p className="loading-text">⏳ Carregando dados...</p>
 		</div>
 	);
 };

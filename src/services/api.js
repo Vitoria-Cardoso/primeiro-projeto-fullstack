@@ -1,33 +1,40 @@
 import axios from "axios";
 
-// Cria uma instância do axios com a URL base
 const api = axios.create({
 	baseURL: "https://restcountries.com/v3.1",
 });
 
-// Função que busca países por nome
 export const searchCountries = async (name) => {
-	// Valida se o nome está vazio
 	if (!name || name.trim() === "") {
 		throw new Error("Digite um nome de país");
 	}
 
 	try {
-		// Faz a requisição GET
 		const response = await api.get(`/name/${name}`);
 
-		// Retorna apenas os dados que precisamos
+		if (!response.data || response.data.length === 0) {
+			throw new Error("Nenhum país encontrado com esse nome");
+		}
+
 		return response.data.map((country) => ({
 			name: country.name.common,
 			capital: country.capital ? country.capital[0] : "N/A",
 			population: country.population.toLocaleString("pt-BR"),
+			region: country.region || "N/A",
 			flag: country.flags.svg,
 		}));
 	} catch (error) {
-		// Se o país não existir, a API retorna 404
 		if (error.response?.status === 404) {
-			throw new Error("País não encontrado");
+			throw new Error("🌍 País não encontrado. Tente outro nome!");
 		}
-		throw new Error("Erro ao buscar dados. Tente novamente.");
+		if (
+			error.message.includes("não encontrado") ||
+			error.message.includes("Digite um")
+		) {
+			throw error;
+		}
+		throw new Error(
+			"⚠️ Erro na conexão com a API. Tente novamente em alguns segundos.",
+		);
 	}
 };

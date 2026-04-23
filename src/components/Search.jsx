@@ -11,7 +11,11 @@ export const Search = () => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm();
+	} = useForm({
+		defaultValues: {
+			searchTerm: "",
+		},
+	});
 
 	const onSubmit = async (data) => {
 		try {
@@ -31,69 +35,28 @@ export const Search = () => {
 	};
 
 	return (
-		<form
-			onSubmit={handleSubmit(onSubmit)}
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				gap: "15px",
-				marginBottom: "30px",
-			}}>
-			<div
-				style={{
-					display: "flex",
-					gap: "10px",
-					justifyContent: "center",
-					width: "100%",
-					flexWrap: "wrap",
-				}}>
-				<input
-					type="text"
-					placeholder="Digite o nome de um país..."
-					{...register("searchTerm", {
-						required: "Campo obrigatório!",
-						minLength: {
-							value: 2,
-							message: "Mínimo 2 caracteres",
-						},
-					})}
-					style={{
-						padding: "10px",
-						width: "300px",
-						fontSize: "16px",
-						borderRadius: "4px",
-						border: errors.searchTerm ? "2px solid red" : "1px solid #ccc",
-					}}
-				/>
-				<button
-					type="submit"
-					style={{
-						padding: "10px 20px",
-						cursor: "pointer",
-						backgroundColor: "#007bff",
-						color: "white",
-						border: "none",
-						borderRadius: "4px",
-						fontSize: "16px",
-						fontWeight: "bold",
-					}}>
-					🔍 Buscar
-				</button>
-			</div>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<div>
+				<div>
+					<input
+						type="text"
+						placeholder="Digite o nome de um país..."
+						{...register("searchTerm", {
+							required: "Campo obrigatório!",
+							minLength: {
+								value: 2,
+								message: "Mínimo 2 caracteres",
+							},
+						})}
+					/>
+					<button type="submit">Buscar</button>
+				</div>
 
-			{/* Mostra erro de validação */}
-			{errors.searchTerm && (
-				<p
-					style={{
-						color: "red",
-						marginTop: "5px",
-						fontSize: "14px",
-						textAlign: "center",
-					}}>
-					⚠️ {errors.searchTerm.message}
-				</p>
-			)}
+				{/* Mensagem de erro validação */}
+				{errors.searchTerm && (
+					<div className="error-message">⚠️ {errors.searchTerm.message}</div>
+				)}
+			</div>
 		</form>
 	);
 };
