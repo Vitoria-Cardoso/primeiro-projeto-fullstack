@@ -4,18 +4,19 @@ const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const rateLimit = require("express-rate-limit");
 const { findByEmail } = require("../models/UserModel");
+const { addToBlacklist } = require("../models/TokenBlacklistModel");
+const authMiddleware = require("../middleware/auth");
 
 const router = express.Router();
 
-// Máximo de 5 tentativas de login por IP a cada 15 minutos
 const loginLimiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutos
+	windowMs: 15 * 60 * 1000,
 	max: 5,
 	message: {
 		error: "RATE_LIMIT",
 		message: "Muitas tentativas de login. Tente novamente em 15 minutos.",
 	},
-	standardHeaders: true, // Retorna info do limite nos headers (RateLimit-*)
+	standardHeaders: true,
 	legacyHeaders: false,
 	handler: (req, res, next, options) => {
 		console.warn(
@@ -55,7 +56,6 @@ router.post(
 
 			const ok = await bcrypt.compare(password, user.password_hash);
 			if (!ok) {
-				// Log de tentativa de login com senha errada
 				console.warn(
 					`[AUTH FAIL] Senha incorreta para: ${email} — IP: ${req.ip}`,
 				);
@@ -79,5 +79,23 @@ router.post(
 		}
 	},
 );
+
+router.post("/logout", authMiddleware, async (req, res) => {
+	try {
+		const token = req.headers.authorization.split(" ")[1];
+		const decoded = jwt.decode(token);
+
+		const expiresAt = new Date(decoded.exp * 1000);
+		await addToBlacklist(token, expiresAt);
+
+		console.log(
+			`[LOGOUT] Usuário ${req.user.email} encerrou sessão — IP: ${req.ip}`,
+		);
+		return res.status(200).json({ message: "Logout realizado com sucesso" });
+	} catch (err) {
+		console.error("Erro no logout:", err);
+		return res.status(500).json({ error: "Erro ao realizar logout" });
+	}
+});
 
 module.exports = router;

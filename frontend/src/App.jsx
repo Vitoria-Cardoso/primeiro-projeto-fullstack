@@ -4,7 +4,9 @@ import { Search } from "./components/Search";
 import { CountryList } from "./components/CountryList";
 import { Loading } from "./components/Loading";
 import { LoginForm } from "./components/LoginForm";
+import { InsertForm } from "./components/InsertForm";
 import { getToken, getUser, clearAuth } from "./utils/auth";
+import { logoutRequest } from "./services/authService";
 import "./App.css";
 
 function App() {
@@ -12,9 +14,15 @@ function App() {
 	const { countries, loading, error } = state;
 
 	const [authUser, setAuthUser] = useState(getUser());
+	const [showInsert, setShowInsert] = useState(false);
 	const isLogged = !!getToken();
 
-	const handleLogout = () => {
+	const handleLogout = async () => {
+		try {
+			await logoutRequest();
+		} catch {
+			// mesmo se falhar no servidor, limpa localmente
+		}
 		clearAuth();
 		setAuthUser(null);
 		window.location.reload();
@@ -23,11 +31,7 @@ function App() {
 	if (!isLogged) {
 		return (
 			<div className="container">
-				<LoginForm
-					onLogin={(user) => {
-						setAuthUser(user);
-					}}
-				/>
+				<LoginForm onLogin={(user) => setAuthUser(user)} />
 			</div>
 		);
 	}
@@ -41,11 +45,18 @@ function App() {
 				</div>
 				<div className="header-right">
 					<span className="logged-user">👤 {authUser?.name || "Usuário"}</span>
+					<button
+						className="btn-toggle-insert"
+						onClick={() => setShowInsert((v) => !v)}>
+						{showInsert ? "✖ Fechar" : "➕ Inserir País"}
+					</button>
 					<button className="btn-logout" onClick={handleLogout}>
 						Sair
 					</button>
 				</div>
 			</div>
+
+			{showInsert && <InsertForm onCreated={() => setShowInsert(false)} />}
 
 			<Search />
 

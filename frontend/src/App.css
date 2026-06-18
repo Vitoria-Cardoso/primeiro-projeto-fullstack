@@ -458,3 +458,127 @@ form .error-message {
 		padding: 28px 20px;
 	}
 }
+
+/* ===== INSERT FORM ===== */
+.insert-box {
+	background: white;
+	border-radius: 16px;
+	padding: 28px 32px;
+	margin-bottom: 32px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	border: 1px solid #e8e8e8;
+}
+
+.insert-title {
+	font-size: 1.3em;
+	color: #1a3a52;
+	margin-bottom: 20px;
+	font-weight: 700;
+}
+
+.insert-form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.insert-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+.insert-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.insert-field-full {
+	grid-column: 1 / -1;
+}
+
+.insert-field label {
+	font-size: 13px;
+	font-weight: 600;
+	color: #444;
+}
+
+.insert-input {
+	padding: 11px 14px;
+	font-size: 15px;
+	border: 2px solid #e0e0e0;
+	border-radius: 10px;
+	background: #fafafa;
+	transition: border-color 0.2s;
+	width: 100%;
+}
+
+.insert-input:focus {
+	outline: none;
+	border-color: #667eea;
+}
+
+.insert-btn {
+	padding: 13px;
+	background: linear-gradient(135deg, #28a745 0%, #20883a 100%);
+	color: white;
+	border: none;
+	border-radius: 10px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: opacity 0.2s;
+	margin-top: 4px;
+}
+
+.insert-btn:hover {
+	opacity: 0.9;
+}
+
+.insert-btn:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.insert-success {
+	background: #d4edda;
+	color: #155724;
+	padding: 10px 14px;
+	border-radius: 8px;
+	border-left: 4px solid #28a745;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.insert-error {
+	background: #fff5f5;
+	color: #dc3545;
+	padding: 10px 14px;
+	border-radius: 8px;
+	border-left: 4px solid #dc3545;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.btn-toggle-insert {
+	padding: 8px 18px;
+	background: linear-gradient(135deg, #28a745 0%, #20883a 100%);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: opacity 0.2s;
+}
+
+.btn-toggle-insert:hover {
+	opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+	.insert-grid {
+		grid-template-columns: 1fr;
+	}
+}
