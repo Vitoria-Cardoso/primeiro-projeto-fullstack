@@ -2,6 +2,7 @@ const express = require("express");
 const { query, body, validationResult } = require("express-validator");
 const authMiddleware = require("../middleware/auth");
 const { searchCountries, insertCountry } = require("../models/CountryModel");
+const cache = require("../config/cache");
 
 const router = express.Router();
 
@@ -24,13 +25,27 @@ router.get(
 			});
 		}
 
+		const { q = "", region = "", limit = 20, offset = 0 } = req.query;
+
+		const cacheKey = `items:${q}:${region}:${limit}:${offset}`;
+
+		const cached = cache.get(cacheKey);
+		if (cached) {
+			console.log(`[CACHE HIT] ${cacheKey}`);
+			return res.status(200).json({ data: cached, fromCache: true });
+		}
+
 		try {
 			const data = await searchCountries({
-				q: req.query.q || "",
-				region: req.query.region || "",
-				limit: Number(req.query.limit || 20),
-				offset: Number(req.query.offset || 0),
+				q,
+				region,
+				limit: Number(limit),
+				offset: Number(offset),
 			});
+
+			// Salva no cache para próximas requisições
+			cache.set(cacheKey, data);
+			console.log(`[CACHE SET] ${cacheKey}`);
 
 			return res.status(200).json({ data });
 		} catch (err) {
@@ -65,6 +80,10 @@ router.post(
 				...req.body,
 				userId: req.user.id,
 			});
+
+			cache.flushAll();
+			console.log("[CACHE FLUSH] novo país inserido, cache limpo");
+
 			return res.status(201).json(created);
 		} catch (err) {
 			console.error("Erro na inserção:", err);
