@@ -4,7 +4,7 @@ export const getItems = async (q = "") => {
 	const { data } = await apiClient.get(
 		`/items${q ? `?q=${encodeURIComponent(q)}` : ""}`,
 	);
-	return data;
+	return data.data; // 👈 o backend envolve em { data: [...] }, precisa extrair o array
 };
 
 export const createItem = async (payload) => {

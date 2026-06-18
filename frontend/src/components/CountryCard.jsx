@@ -1,9 +1,14 @@
 export const CountryCard = ({ country }) => {
 	return (
 		<div className="country-card">
-			<img src={country.flag} alt={country.name} className="country-flag" />
+			{country.flag_url && (
+				<img
+					src={country.flag_url}
+					alt={country.name}
+					className="country-flag"
+				/>
+			)}
 
-			{/* Conteúdo */}
 			<div className="card-content">
 				<h3 className="country-name">{country.name}</h3>
 
@@ -16,7 +21,7 @@ export const CountryCard = ({ country }) => {
 				<div className="card-info">
 					<span className="card-info-icon">👥</span>
 					<strong>População:</strong>
-					<span>{country.population}</span>
+					<span>{country.population?.toLocaleString("pt-BR")}</span>
 				</div>
 
 				{country.region && (
