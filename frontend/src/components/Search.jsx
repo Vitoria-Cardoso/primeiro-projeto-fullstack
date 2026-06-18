@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { CountryContext } from "../contexts/CountryContext";
 import { ACTIONS } from "../contexts/countryReducer";
-import { searchCountries } from "../services/api";
+import { getItems } from "../services/itemService";
 
 export const Search = () => {
 	const { dispatch } = useContext(CountryContext);
@@ -20,10 +20,10 @@ export const Search = () => {
 	const onSubmit = async (data) => {
 		try {
 			dispatch({ type: ACTIONS.SEARCH_START });
-			const countries = await searchCountries(data.searchTerm);
+			const countries = await getItems(data.searchTerm);
 			dispatch({
 				type: ACTIONS.SEARCH_SUCCESS,
-				payload: countries,
+				payload: countries.data || countries,
 			});
 			reset();
 		} catch (error) {
