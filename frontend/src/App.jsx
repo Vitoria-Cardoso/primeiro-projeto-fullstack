@@ -4,7 +4,6 @@ import { Search } from "./components/Search";
 import { CountryList } from "./components/CountryList";
 import { Loading } from "./components/Loading";
 import { LoginForm } from "./components/LoginForm";
-import { InsertForm } from "./components/InsertForm";
 import { getToken, getUser, clearAuth } from "./utils/auth";
 import "./App.css";
 
@@ -21,39 +20,36 @@ function App() {
 		window.location.reload();
 	};
 
-	// Se não tiver token, mostra só login
 	if (!isLogged) {
 		return (
 			<div className="container">
-				<h1>🔐 Login</h1>
-				<p className="subtitle">Entre para acessar Busca e Inserção</p>
-				<LoginForm onLogin={(user) => setAuthUser(user)} />
+				<LoginForm
+					onLogin={(user) => {
+						setAuthUser(user);
+					}}
+				/>
 			</div>
 		);
 	}
 
-	// Se tiver token, mostra app normal + inserção + logout
 	return (
 		<div className="container">
-			<div
-				style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
+			<div className="header-bar">
 				<div>
 					<h1>🌍 Busca de Países</h1>
-					<p className="subtitle">
-						Usuário logado: <strong>{authUser?.name || "Usuário"}</strong>
-					</p>
+					<p className="subtitle">Encontre informações sobre países do mundo</p>
 				</div>
-				<button onClick={handleLogout}>Sair</button>
+				<div className="header-right">
+					<span className="logged-user">👤 {authUser?.name || "Usuário"}</span>
+					<button className="btn-logout" onClick={handleLogout}>
+						Sair
+					</button>
+				</div>
 			</div>
-
-			<InsertForm />
-
-			<hr style={{ margin: "20px 0" }} />
 
 			<Search />
 
 			{error && <div className="error-box">❌ {error}</div>}
-
 			{loading && <Loading />}
 
 			{!loading && countries.length > 0 && (

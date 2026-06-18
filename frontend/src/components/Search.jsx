@@ -23,13 +23,16 @@ export const Search = () => {
 			const countries = await getItems(data.searchTerm);
 			dispatch({
 				type: ACTIONS.SEARCH_SUCCESS,
-				payload: countries.data || countries,
+				payload: countries,
 			});
 			reset();
 		} catch (error) {
 			dispatch({
 				type: ACTIONS.SEARCH_ERROR,
-				payload: error.message,
+				payload:
+					error?.response?.data?.message ||
+					error?.response?.data?.error ||
+					"Erro ao buscar países",
 			});
 		}
 	};
